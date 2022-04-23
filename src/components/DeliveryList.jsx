@@ -4,6 +4,8 @@ export const DeliveryList = ({ item = [] }) => {
   return (
     <Box component="div">
       Lista
+      Lista
+
     </Box>
   );
 };
