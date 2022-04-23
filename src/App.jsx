@@ -4,8 +4,7 @@ import { DeliveryList } from "./components/DeliveryList";
 export const App = () => {
   return (
     <View>
-      <DeliveryList></DeliveryList>
-      
+      <DeliveryList />
     </View>
   );
 };

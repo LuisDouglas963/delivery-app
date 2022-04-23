@@ -7,7 +7,7 @@ export const View = ({ children }) => {
     <div>
       <Header />
       <Box
-      component="main"
+        component="main"
         sx={{
           padding: (theme) => theme.spacing(2),
           minHeight: 700,
