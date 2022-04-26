@@ -37,7 +37,7 @@ export const DeliveryListItem = ({
             </IconButton>
 
             <IconButton edge="end" aria-label="edit">
-              <EditIcon onClick={} />
+              <EditIcon  />
             </IconButton>
           </Box>
         }
