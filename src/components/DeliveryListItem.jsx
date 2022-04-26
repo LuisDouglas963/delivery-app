@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -7,8 +8,18 @@ import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Checkbox from "@mui/material/Checkbox";
+import { useDispatch } from 'react-redux'
 
-export const DeliveryListItem = ({title, description, delivered, deliveryDate }) => {
+export const DeliveryListItem = ({
+  title,
+  description,
+  delivered,
+  deliveryDate,
+
+}) => {
+
+  const dispatch = useDispatch();
+
   return (
     <List>
       <ListItem
@@ -26,17 +37,17 @@ export const DeliveryListItem = ({title, description, delivered, deliveryDate })
             </IconButton>
 
             <IconButton edge="end" aria-label="edit">
-              <EditIcon />
+              <EditIcon onClick={} />
             </IconButton>
           </Box>
         }
       >
         <ListItemText
-          primary="Product"
+          primary={title}
           secondary={
             <Box>
-              <Box>Previsão de entrega: 10/10/2022</Box>
-              <Box>descrição</Box>
+              <Box>Previsão de entrega: {deliveryDate}</Box>
+              <Box>{description}</Box>
             </Box>
           }
         />

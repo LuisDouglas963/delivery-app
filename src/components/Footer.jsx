@@ -23,6 +23,7 @@ export const Footer = () => {
       >
         GitHub
       </Box>
+      
     </Box>
   );
 };

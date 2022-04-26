@@ -1,0 +1,16 @@
+export const ADD_DELIVERY = "ADD_DELIVERY";
+
+export const EDIT_DELIVERY = "EDIT_DELIVERY";
+
+export const DELETE_DELIVERY = "DELETE_DELIVERY";
+
+export const OPEN_ADD_MODAL = "OPEN_ADD_MODAL";
+
+export const CLOSE_ADD_MODAL = "CLOSE_ADD_MODAL";
+
+export const OPEN_EDIT_MODAL = "OPEN_EDIT_MODAL";
+
+export const CLOSE_EDIT_MODAL = "CLOSE_EDIT_MODAL";
+
+
+

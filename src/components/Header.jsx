@@ -4,6 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
 
 export const Header = () => {
   return (
@@ -11,15 +12,14 @@ export const Header = () => {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
+            <DeliveryDiningIcon
               size="large"
               edge="start"
               color="inherit"
-              aria-label="menu"
               sx={{ mr: 2 }}
             >
               <MenuIcon />
-            </IconButton>
+            </DeliveryDiningIcon>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Delivery
             </Typography>
