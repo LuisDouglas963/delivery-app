@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 
 import * as actions from "../redux/actions";
-import { editModalisOpen } from "../redux/selectors";
+import { addModalisOpen } from "../redux/selectors";
 
 const style = {
   position: "absolute",
@@ -23,17 +23,17 @@ const style = {
   p: 4,
 };
 
-export const ModalEdit = () => {
+export const ModalAddItem = () => {
   const dispatch = useDispatch();
-  const isOpen = useSelector(editModalisOpen);
+  const isOpen = useSelector(addModalisOpen);
 
-  const openModal = () => dispatch({ type: actions.OPEN_EDIT_MODAL });
+  const openModal = () => dispatch({ type: actions.OPEN_ADD_MODAL });
 
-  const closeModal = () => dispatch({ type: actions.CLOSE_EDIT_MODAL });
+  const closeModal = () => dispatch({ type: actions.CLOSE_ADD_MODAL });
 
   return (
     <div>
-      <Button onClick={openModal}>Open modal</Button>
+      <Button onClick={openModal}>Adicionar delivery</Button>
       <Modal
         open={isOpen}
         onClose={closeModal}
