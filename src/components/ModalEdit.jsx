@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
-import { createStructuredSelector } from "reselect";
 import Typography from "@mui/material/Typography";
 
 import * as actions from "../redux/actions";
