@@ -9,7 +9,13 @@ const runSagas = (sagaMiddleware) => {
 };
 
 export const createReduxStore = () => {
-  const initialState = {};
+  const initialState = {
+    delivery: [],
+    modals: {
+      editModalisOpen: false,
+      addModalisOpen: false,
+    },
+  };
   const middleware = [];
   const enhancers = [];
 
@@ -19,6 +25,7 @@ export const createReduxStore = () => {
   enhancers.push(applyMiddleware(...middleware));
   const enhancer = composeWithDevTools(...enhancers);
   const store = createStore(rootReducer, initialState, enhancer);
+  // console.log(rootReducer())
 
   runSagas(sagaMiddleware);
   return store;

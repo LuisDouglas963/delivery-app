@@ -1,9 +1,14 @@
-import { useState } from "react";
+// import { useCallback, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
+import { useDispatch, useSelector } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import Typography from "@mui/material/Typography";
+
+import * as actions from "../redux/actions";
+import { editModalisOpen } from "../redux/selectors";
 
 const style = {
   position: "absolute",
@@ -19,24 +24,27 @@ const style = {
   p: 4,
 };
 
-export const ModalEdit = (props) => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+export const ModalEdit = () => {
+  const dispatch = useDispatch();
+  const isOpen = useSelector(editModalisOpen);
+
+  const openModal = () => dispatch({ type: actions.OPEN_EDIT_MODAL });
+
+  const closeModal = () => dispatch({ type: actions.CLOSE_EDIT_MODAL });
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <Button onClick={openModal}>Open modal</Button>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={isOpen}
+        onClose={closeModal}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {/* <Typography id="modal-modal-title" variant="h6" component="h2">
-         Editar Produto
-          </Typography> */}
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Editar Produto
+          </Typography>
           <Box
             component="div"
             sx={{ margin: "10px 15px", padding: "15px 1px" }}
@@ -68,8 +76,8 @@ export const ModalEdit = (props) => {
             />
           </Box>
           <Box component="div" sx={{ display: "flex", margin: "10px 0" }}>
-            <Button onClick={handleClose}>Cancelar</Button>
-            <Button onClick={handleClose}>Salvar</Button>
+            <Button onClick={closeModal}>Cancelar</Button>
+            <Button onClick={closeModal}>Salvar</Button>
           </Box>
 
           {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
