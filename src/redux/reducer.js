@@ -1,9 +1,8 @@
 import * as actions from "./actions";
 
 const initialState = {
-  delivery: [
-   
-  ],
+  delivery: [],
+  deliveryBeenEdited: "",
   modals: {
     editModalisOpen: false,
     addModalisOpen: false,
@@ -15,8 +14,11 @@ const uuId = () => Math.random().toString(36).substr(3, 9);
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.OPEN_EDIT_MODAL: {
+      
       return {
         ...state,
+        deliveryBeenEdited: action.payload.deliveryId,
+
         modals: {
           ...state.modals,
           editModalisOpen: true,
@@ -27,6 +29,7 @@ export const rootReducer = (state = initialState, action) => {
     case actions.CLOSE_EDIT_MODAL: {
       return {
         ...state,
+        deliveryBeenEdited: initialState.deliveryBeenEdited,
         modals: {
           ...state.modals,
           editModalisOpen: false,
@@ -58,22 +61,14 @@ export const rootReducer = (state = initialState, action) => {
       const newDelivery = {
         ...action.payload,
         id: uuId(),
-      }
+      };
       return {
         ...state,
-        delivery: [
-          ...state.delivery,
-          newDelivery,
-        ],
+        delivery: [...state.delivery, newDelivery],
       };
     }
 
-    
-
-    // case actions.SHOW_DELIVERY: {
-    //   return {
-    //     state,
-    //   }
+    // case actions.EDIT_DELIVERY: {
     // }
 
     default:

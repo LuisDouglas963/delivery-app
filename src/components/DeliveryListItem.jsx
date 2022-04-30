@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from "react";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -8,25 +8,40 @@ import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Checkbox from "@mui/material/Checkbox";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../redux/actions";
-import { editModalisOpen } from "../redux/selectors";
+import { editModalisOpen, getDeliveryByID } from "../redux/selectors";
+import useForm from "../hooks/useForm";
 
 export const DeliveryListItem = ({
+  id,
   product,
   description,
   delivered,
   deliveryDate,
-
 }) => {
-
   const dispatch = useDispatch();
+
   const isOpen = useSelector(editModalisOpen);
 
-  const openModal = () => dispatch({ type: actions.OPEN_EDIT_MODAL });
+  const openModal = () =>
+    dispatch({ type: actions.OPEN_EDIT_MODAL, payload: { deliveryId: id } });
 
-  const closeModal = () => dispatch({ type: actions.CLOSE_EDIT_MODAL });
+  const delivery = useSelector(getDeliveryByID(id));
 
+  const initialValues = useMemo(
+    () => ({
+      product: delivery.product,
+      description: delivery.description,
+      deliveryDate: delivery.deliveryDate,
+    }),
+    [delivery]
+  );
+  const onSubmit = () => {
+    console.log("ok");
+  };
+
+  const { handleChange, handleSubmit } = useForm(initialValues, onSubmit);
 
   return (
     <List>
@@ -53,7 +68,7 @@ export const DeliveryListItem = ({
         <ListItemText
           primary={product}
           secondary={
-            <Box>
+            <Box component="form" onSubmit={handleSubmit}>
               <Box>Previsão de entrega: {deliveryDate}</Box>
               <Box>{description}</Box>
             </Box>

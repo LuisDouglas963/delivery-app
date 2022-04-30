@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 
 import * as actions from "../redux/actions";
-import { editModalisOpen } from "../redux/selectors";
+import { editModalisOpen, getDeliveryBeenEdited } from "../redux/selectors";
 
 import useForm from "../hooks/useForm";
 
@@ -33,14 +33,28 @@ export const ModalEditItem = () => {
 
   const closeModal = () => dispatch({ type: actions.CLOSE_EDIT_MODAL });
 
+  const delivery = useSelector(getDeliveryBeenEdited);
 
-  const initialValues = useMemo(() => ({}), []);
+
+  const initialValues = useMemo(() => {
+    if (!delivery) {
+      return {};
+    }
+    return {
+      product: delivery.product,
+      description: delivery.description,
+      deliveryDate: delivery.deliveryDate,
+    };
+  }, [delivery]);
 
   const onSubmit = ({ values }) => {
     dispatch({ type: actions.SAVE_DELIVERY, payload: values });
   };
 
-  const { handleChange, handleSubmit } = useForm(initialValues, onSubmit);
+  const { handleChange, handleSubmit, values } = useForm(
+    initialValues,
+    onSubmit
+  );
 
   return (
     <div>
@@ -65,6 +79,7 @@ export const ModalEditItem = () => {
                 margin="dense"
                 id="product"
                 label="Produto"
+                value={values.product}
                 name="product"
                 fullWidth
                 variant="outlined"
@@ -75,6 +90,7 @@ export const ModalEditItem = () => {
                 margin="dense"
                 id="description"
                 name="description"
+                value={values.description}
                 label="Descrição"
                 fullWidth
                 variant="outlined"
@@ -85,6 +101,7 @@ export const ModalEditItem = () => {
                 margin="dense"
                 id="deliveyDate"
                 name="deliveryDate"
+                value={values.deliveryDate}
                 label="Data de entrega"
                 fullWidth
                 variant="outlined"

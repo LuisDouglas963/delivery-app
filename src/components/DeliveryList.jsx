@@ -9,25 +9,12 @@ export const DeliveryList = () => {
 
   return (
     <Box component="div">
-      {deliveries.map((delivery) => (
-        <DeliveryListItem
-          product={delivery.product}
-          description={delivery.description}
-          deliveryDate={delivery.deliveryDate}
-        />
-      ))}
-      {/* <DeliveryListItem
-        product="Burger"
-        description="S/ alface"
-        delivered={true}
-        deliveryDate="09/10/2022"
-      />
-      <DeliveryListItem
-        product="Pizza Calabreza"
-        description="S/ Cebola"
-        delivered={true}
-        deliveryDate="09/10/2022"
-      /> */}
+      {deliveries.map((delivery) => {
+        console.log(delivery);
+
+        return <DeliveryListItem {...delivery} />;
+      })}
+     
     </Box>
   );
 };

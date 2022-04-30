@@ -11,6 +11,7 @@ const runSagas = (sagaMiddleware) => {
 export const createReduxStore = () => {
   const initialState = {
     delivery: [],
+    deliveryBeenEdited: '',
     modals: {
       editModalisOpen: false,
       addModalisOpen: false,
