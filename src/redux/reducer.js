@@ -1,12 +1,16 @@
 import * as actions from "./actions";
 
 const initialState = {
-  delivery: [],
+  delivery: [
+   
+  ],
   modals: {
     editModalisOpen: false,
     addModalisOpen: false,
   },
 };
+
+const uuId = () => Math.random().toString(36).substr(3, 9);
 
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -49,6 +53,28 @@ export const rootReducer = (state = initialState, action) => {
         },
       };
     }
+
+    case actions.SAVE_DELIVERY: {
+      const newDelivery = {
+        ...action.payload,
+        id: uuId(),
+      }
+      return {
+        ...state,
+        delivery: [
+          ...state.delivery,
+          newDelivery,
+        ],
+      };
+    }
+
+    
+
+    // case actions.SHOW_DELIVERY: {
+    //   return {
+    //     state,
+    //   }
+    // }
 
     default:
       return state;

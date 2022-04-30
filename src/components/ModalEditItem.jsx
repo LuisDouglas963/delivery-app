@@ -1,4 +1,4 @@
-// import { useCallback, useState } from "react";
+import { useState, useMemo } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -8,6 +8,8 @@ import Typography from "@mui/material/Typography";
 
 import * as actions from "../redux/actions";
 import { editModalisOpen } from "../redux/selectors";
+
+import useForm from "../hooks/useForm";
 
 const style = {
   position: "absolute",
@@ -31,9 +33,17 @@ export const ModalEditItem = () => {
 
   const closeModal = () => dispatch({ type: actions.CLOSE_EDIT_MODAL });
 
+
+  const initialValues = useMemo(() => ({}), []);
+
+  const onSubmit = ({ values }) => {
+    dispatch({ type: actions.SAVE_DELIVERY, payload: values });
+  };
+
+  const { handleChange, handleSubmit } = useForm(initialValues, onSubmit);
+
   return (
     <div>
-      <Button onClick={openModal}>Editar delivery</Button>
       <Modal
         open={isOpen}
         onClose={closeModal}
@@ -41,47 +51,51 @@ export const ModalEditItem = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography id="modal-title" variant="h6" component="h2">
             Editar Produto
           </Typography>
           <Box
             component="div"
             sx={{ margin: "10px 15px", padding: "15px 1px" }}
           >
-            <TextField
-              sx={{ margin: "10px 0" }}
-              autoFocus
-              margin="dense"
-              id="product"
-              label="Produto"
-              fullWidth
-              variant="outlined"
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="description"
-              label="Descrição"
-              fullWidth
-              variant="outlined"
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="deliveyDate"
-              label="Data de entrega"
-              fullWidth
-              variant="outlined"
-            />
+            <Box component="form" onSubmit={handleSubmit}>
+              <TextField
+                sx={{ margin: "10px 0" }}
+                autoFocus
+                margin="dense"
+                id="product"
+                label="Produto"
+                name="product"
+                fullWidth
+                variant="outlined"
+                onChange={handleChange}
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                id="description"
+                name="description"
+                label="Descrição"
+                fullWidth
+                variant="outlined"
+                onChange={handleChange}
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                id="deliveyDate"
+                name="deliveryDate"
+                label="Data de entrega"
+                fullWidth
+                variant="outlined"
+                onChange={handleChange}
+              />
+              <Box component="div" sx={{ display: "flex", margin: "10px 0" }}>
+                <Button onClick={closeModal}>Cancelar</Button>
+                <Button type="submit">Salvar</Button>
+              </Box>
+            </Box>
           </Box>
-          <Box component="div" sx={{ display: "flex", margin: "10px 0" }}>
-            <Button onClick={closeModal}>Cancelar</Button>
-            <Button onClick={closeModal}>Salvar</Button>
-          </Box>
-
-          {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography> */}
         </Box>
       </Modal>
     </div>

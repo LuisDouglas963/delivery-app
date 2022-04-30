@@ -8,10 +8,12 @@ import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Checkbox from "@mui/material/Checkbox";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import * as actions from "../redux/actions";
+import { editModalisOpen } from "../redux/selectors";
 
 export const DeliveryListItem = ({
-  title,
+  product,
   description,
   delivered,
   deliveryDate,
@@ -19,6 +21,12 @@ export const DeliveryListItem = ({
 }) => {
 
   const dispatch = useDispatch();
+  const isOpen = useSelector(editModalisOpen);
+
+  const openModal = () => dispatch({ type: actions.OPEN_EDIT_MODAL });
+
+  const closeModal = () => dispatch({ type: actions.CLOSE_EDIT_MODAL });
+
 
   return (
     <List>
@@ -37,13 +45,13 @@ export const DeliveryListItem = ({
             </IconButton>
 
             <IconButton edge="end" aria-label="edit">
-              <EditIcon  />
+              <EditIcon onClick={openModal} />
             </IconButton>
           </Box>
         }
       >
         <ListItemText
-          primary={title}
+          primary={product}
           secondary={
             <Box>
               <Box>Previsão de entrega: {deliveryDate}</Box>
